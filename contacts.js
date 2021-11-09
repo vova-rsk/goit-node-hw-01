@@ -27,6 +27,12 @@ async function getContactById(contactId) {
     try {
         const data = await fs.readFile(contactsPath);
         const contacts = await JSON.parse(data.toString());
+
+        if (isNaN(contactId)) {
+            console.log(`id format is incorrect`.red);
+            return;
+        }
+
         const contact = contacts.find(({ id }) => id === contactId);
 
         if (!contact) {
@@ -45,6 +51,12 @@ async function removeContact(contactId) {
     try {
         const data = await fs.readFile(contactsPath);
         const contacts = await JSON.parse(data.toString());
+
+        if (isNaN(contactId)) {
+            console.log(`id format is incorrect`.red);
+            return;
+        }
+
         const filteredContacts = contacts.filter(({ id }) => id !== contactId);
 
         if (contacts.length === filteredContacts.length) {
@@ -63,12 +75,19 @@ async function addContact(name, email, phone) {
     try {
         const data = await fs.readFile(contactsPath);
         const contacts = await JSON.parse(data.toString());
+        
+        if (!name || !email || !phone) {
+            console.log('not entered all required arguments'.red);
+            return;
+        }
+
         contacts.push({
             id: idGenerator(contacts),
             name,
             email,
             phone
         });
+
         await fs.writeFile(contactsPath, JSON.stringify(contacts));
         console.log(`New contact successfully added`.green);
     } catch (error) {
