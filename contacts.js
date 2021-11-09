@@ -15,9 +15,7 @@ async function listContacts() {
             return;
         }
 
-        contacts.forEach(({ name, email, phone}, idx) => {
-            console.log(`${idx + 1}. ${name}  ${email}  ${phone}`);
-        });
+        console.table(contacts);
     } catch (error) {
         console.log(error);
     }
@@ -40,8 +38,7 @@ async function getContactById(contactId) {
             return;
         }
 
-        const { name, email, phone } = contact;
-        console.log(`${name}  ${email}  ${phone}`);
+        console.table([contact])
     } catch (error) {
         console.log(error);
     }
