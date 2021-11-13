@@ -23,12 +23,6 @@ async function listContacts() {
 
 async function getContactById(contactId) {
     const contacts = await getContacts();
-
-    if (isNaN(contactId)) {
-        console.log(`id format is incorrect`.red);
-        return;
-    }
-
     const contact = contacts.find(({ id }) => id === contactId);
 
     if (!contact) {
@@ -41,12 +35,6 @@ async function getContactById(contactId) {
 
 async function removeContact(contactId) {
     const contacts = await getContacts();
-
-    if (isNaN(contactId)) {
-        console.log(`id format is incorrect`.red);
-        return;
-    }
-
     const filteredContacts = contacts.filter(({ id }) => id !== contactId);
 
     if (contacts.length === filteredContacts.length) {
